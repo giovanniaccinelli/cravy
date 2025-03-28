@@ -6,6 +6,7 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import structuredIngredients from '../structured_usda_ingredients.json';
+import categories from '../categories.json'; // Import categories (now with colors)
 
 export default function CreateRecipe() {
   const router = useRouter();
@@ -14,8 +15,8 @@ export default function CreateRecipe() {
   const [description, setDescription] = useState('');
   const [ingredientList, setIngredientList] = useState([]);
   const [addedIngredients, setAddedIngredients] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(''); // State for selected category
 
-  // Input fields (fixed row)
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -45,7 +46,6 @@ export default function CreateRecipe() {
 
     setAddedIngredients([...addedIngredients, newItem]);
 
-    // Clear input fields
     setSelectedIngredient('');
     setSelectedUnit('');
     setQuantity('');
@@ -74,7 +74,8 @@ export default function CreateRecipe() {
         creatorId: user.uid,
         description,
         videoUrl,
-        ingredients: addedIngredients
+        ingredients: addedIngredients,
+        category: selectedCategory || "Uncategorized" // If no category selected, default to 'Uncategorized'
       });
 
       alert('Recipe uploaded!');
@@ -107,9 +108,28 @@ export default function CreateRecipe() {
         onChange={(e) => setVideoUrl(e.target.value)}
       />
 
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">Category (Optional)</h2>
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        className="mb-6 p-2 border border-gray-300 rounded w-full max-w-xl"
+      >
+        <option value="">Select Category (Optional)</option>
+        {categories.map((category, index) => (
+          <option key={index} value={category.name}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+
+      {selectedCategory && (
+        <div className={`mb-4 p-2 rounded-full text-white ${categories.find(cat => cat.name === selectedCategory).color}`}>
+          {selectedCategory}
+        </div>
+      )}
+
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
 
-      {/* Fixed Row for Input */}
       <div className="w-full max-w-xl grid grid-cols-4 gap-2 mb-4 items-center">
         <select
           className="p-2 border border-gray-300 rounded"
@@ -158,7 +178,6 @@ export default function CreateRecipe() {
         </button>
       </div>
 
-      {/* List of Added Ingredients */}
       <div className="w-full max-w-xl mb-6">
         {addedIngredients.map((item, idx) => (
           <div key={idx} className="grid grid-cols-4 gap-2 items-center mb-2">
@@ -176,12 +195,16 @@ export default function CreateRecipe() {
       </div>
 
       <button
-        className="bg-red-600 text-white px-6 py-3 rounded text-lg hover:bg-red-700"
+        className={`px-6 py-3 rounded text-lg ${
+          description && videoUrl && addedIngredients.length > 0
+            ? 'bg-black text-white hover:bg-gray-900'
+            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        }`}
         onClick={handleSubmit}
+        disabled={!description || !videoUrl || addedIngredients.length === 0}
       >
         ✅ Submit Recipe
       </button>
     </div>
   );
 }
-

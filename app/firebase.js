@@ -1,18 +1,16 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-// Configurazione Firebase (usa esattamente la tua configurazione)
 const firebaseConfig = {
-  apiKey: "AIzaSyB-DchN_aUe4dlVxoDVjqEarNOTVZg1H98",
-  authDomain: "cravy-a43f9.firebaseapp.com",
-  projectId: "cravy-a43f9",
-  storageBucket: "cravy-a43f9.firebasestorage.app",
-  messagingSenderId: "266639626674",
-  appId: "1:266639626674:web:f59321dde1dfa73bd394ab"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Inizializzazione Firebase
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);

@@ -1,0 +1,22 @@
+[
+    { "name": "Fit", "color": "bg-green-300" },
+    { "name": "Baking", "color": "bg-yellow-300" },
+    { "name": "High Protein", "color": "bg-red-300" },
+    { "name": "Vegan", "color": "bg-green-500" },
+    { "name": "Quick Meals", "color": "bg-purple-300" },
+    { "name": "Dessert", "color": "bg-pink-300" },
+    { "name": "Meal Prep", "color": "bg-blue-300" },
+    { "name": "Comfort Food", "color": "bg-orange-300" },
+    { "name": "One Pot", "color": "bg-teal-300" },
+    { "name": "Gluten Free", "color": "bg-blue-500" },
+    { "name": "Keto", "color": "bg-gray-500" },
+    { "name": "Low Carb", "color": "bg-yellow-500" },
+    { "name": "Viral", "color": "bg-indigo-500" },
+    { "name": "Breakfast", "color": "bg-red-400" },
+    { "name": "Dinner Ideas", "color": "bg-green-400" },
+    { "name": "No Cook", "color": "bg-gray-600" },
+    { "name": "5 Ingredients", "color": "bg-orange-500" },
+    { "name": "Budget-Friendly", "color": "bg-purple-500" }
+  ]
+  
+  

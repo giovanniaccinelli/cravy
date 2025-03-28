@@ -8,13 +8,13 @@ import {
   where,
   deleteDoc,
   doc,
-  getDoc,
-  setDoc
+  getDoc
 } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import Link from 'next/link';
+import categories from '../categories.json'; // Import categories
 
 export default function Profile() {
   const router = useRouter();
@@ -188,7 +188,7 @@ export default function Profile() {
       </Link>
 
       {recipes.length === 0 ? (
-        <p className="text-gray-600">You haven&rsquo;t created any recipes yet.</p>
+        <p className="text-gray-600">You haven’t created any recipes yet.</p>
       ) : (
         recipes.map(recipe => (
           <div key={recipe.id} className="w-full max-w-2xl border-b mb-8 pb-4 relative">
@@ -201,6 +201,12 @@ export default function Profile() {
                 </li>
               ))}
             </ul>
+
+            <div className="text-sm text-gray-500 mb-4">
+              Category: <span className={`p-2 rounded-full text-white ${categories.find(c => c.name === recipe.category)?.color}`}>
+                {recipe.category}
+              </span>
+            </div>
 
             {showPostManager && (
               <div className="absolute bottom-4 right-4 flex gap-2">

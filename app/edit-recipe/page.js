@@ -7,7 +7,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import structuredIngredients from '../structured_usda_ingredients.json';
 
-export default function EditRecipe() {
+export default function EditRecipeClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recipeId = searchParams.get('id');
@@ -18,13 +18,12 @@ export default function EditRecipe() {
   const [ingredientList, setIngredientList] = useState([]);
   const [addedIngredients, setAddedIngredients] = useState([]);
 
-  // Input fields for new row
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
 
   useEffect(() => {
-    onAuthStateChanged(auth, async currentUser => {
+    onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         router.push('/login');
       } else {
@@ -64,7 +63,7 @@ export default function EditRecipe() {
     const newItem = {
       selectedIngredient,
       selectedUnit,
-      quantity: parseFloat(quantity)
+      quantity: parseFloat(quantity),
     };
 
     setAddedIngredients([...addedIngredients, newItem]);
@@ -96,7 +95,7 @@ export default function EditRecipe() {
       await updateDoc(recipeRef, {
         description,
         videoUrl,
-        ingredients: addedIngredients
+        ingredients: addedIngredients,
       });
 
       alert('Recipe updated!');
@@ -107,7 +106,8 @@ export default function EditRecipe() {
     }
   };
 
-  const availableUnits = ingredientList.find(i => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
+  const availableUnits =
+    ingredientList.find((i) => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -131,7 +131,6 @@ export default function EditRecipe() {
 
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
 
-      {/* Fixed Row for Input */}
       <div className="w-full max-w-xl grid grid-cols-4 gap-2 mb-4 items-center">
         <select
           className="p-2 border border-gray-300 rounded"
@@ -180,7 +179,6 @@ export default function EditRecipe() {
         </button>
       </div>
 
-      {/* List of Added Ingredients */}
       <div className="w-full max-w-xl mb-6">
         {addedIngredients.map((item, idx) => (
           <div key={idx} className="grid grid-cols-4 gap-2 items-center mb-2">
@@ -206,3 +204,4 @@ export default function EditRecipe() {
     </div>
   );
 }
+
