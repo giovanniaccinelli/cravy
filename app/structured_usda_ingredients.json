@@ -1,0 +1,1351 @@
+[
+    {
+        "Ingredient": "Almond Butter",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Almond Milk",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Apple",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Apple Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Apples",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Applesauce",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Apricot",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Arugula",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound"
+        ]
+    },
+    {
+        "Ingredient": "Asparagus",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Avocado",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Banana",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Bananas",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Bean",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Beans",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Beef",
+        "Measurement Units": [
+            "ounce",
+            "pound",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Beets",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Blackeye Pea",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Blueberries",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Bread",
+        "Measurement Units": [
+            "slice",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Broccoli",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Brussels Sprouts",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Buckwheat",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Bulgur",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Butter",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Buttermilk",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Cabbage",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Carrots",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Cauliflower",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Celery",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Cheese",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Cherries",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Chia Seeds",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Chicken",
+        "Measurement Units": [
+            "ounce",
+            "pound",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Chickpeas",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Chickpeas (Garbanzo Beans",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Collards",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Cookies",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Corn",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Corn Flour",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Cottage Cheese",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Cranberry Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Cream",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Cream Cheese",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Crustaceans",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Cucumber",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Egg",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Eggplant",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Eggs",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Einkorn",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Farro",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Figs",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Fish",
+        "Measurement Units": [
+            "ounce",
+            "pound",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Flaxseed",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Flour",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Fonio",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Frankfurter",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Garlic",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Grape Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Grapefruit Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Grapes",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Ham",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Hummus",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Kale",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound"
+        ]
+    },
+    {
+        "Ingredient": "Ketchup",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Khorasan",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Kiwifruit",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Lentils",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Lettuce",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound"
+        ]
+    },
+    {
+        "Ingredient": "Mandarin",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Mango",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Melons",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Milk",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Millet",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Mushroom",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Mushrooms",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Mustard",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Nectarines",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Nuts",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Oat Milk",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Oats",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Oil",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Olives",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Onion",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Onion Rings",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Onions",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Orange Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Oranges",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Peaches",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Peanut Butter",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Peanuts",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Pear",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Pears",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Peas",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Pepper",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Peppers",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Pickles",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Pineapple",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Plantains",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Plum",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Pork",
+        "Measurement Units": [
+            "ounce",
+            "pound",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Potatoes",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Raspberries",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Restaurant",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Rice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Salt",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Sauce",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Sausage",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Seeds",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Sesame Butter",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Sorghum",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Sorghum Bran",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Sorghum Flour",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Sorghum Grain",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Soy Milk",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Spinach",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound"
+        ]
+    },
+    {
+        "Ingredient": "Squash",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Strawberries",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "tablespoon"
+        ]
+    },
+    {
+        "Ingredient": "Sugars",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Sweet Potatoes",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Tomato",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Tomato Juice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Tomatoes",
+        "Measurement Units": [
+            "clove",
+            "cup",
+            "ounce",
+            "piece",
+            "pound",
+            "slice",
+            "stick",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Turkey",
+        "Measurement Units": [
+            "ounce",
+            "pound",
+            "unit"
+        ]
+    },
+    {
+        "Ingredient": "Wild Rice",
+        "Measurement Units": [
+            "cup",
+            "fluid ounce",
+            "gallon",
+            "ounce",
+            "pint",
+            "pound",
+            "quart",
+            "tablespoon",
+            "teaspoon"
+        ]
+    },
+    {
+        "Ingredient": "Yogurt",
+        "Measurement Units": [
+            "cup",
+            "ounce",
+            "pound",
+            "slice",
+            "stick",
+            "tablespoon"
+        ]
+    }
+]
