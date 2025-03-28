@@ -79,7 +79,7 @@ export default function Profile() {
     const profileRef = doc(db, 'users', user.uid);
     await setDoc(profileRef, {
       profileName,
-      email: user.email, // ✅ ensures email is stored for Feed matching
+      email: user.email,
     }, { merge: true });
     setEditingName(false);
     alert('Profile name updated.');
@@ -126,7 +126,7 @@ export default function Profile() {
       <div className="flex justify-between items-center w-full max-w-2xl mb-6">
         <div>
           <h1 className="text-4xl font-bold text-red-600">
-            {profileName || user?.email}
+            {(profileName || user?.email)}&rsquo;s Profile
           </h1>
           {editingName ? (
             <div className="mt-2 flex gap-2">
