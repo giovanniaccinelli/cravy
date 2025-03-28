@@ -188,7 +188,7 @@ export default function Profile() {
       </Link>
 
       {recipes.length === 0 ? (
-        <p className="text-gray-600">You haven't created any recipes yet.</p>
+        <p className="text-gray-600">You haven&rsquo;t created any recipes yet.</p>
       ) : (
         recipes.map(recipe => (
           <div key={recipe.id} className="w-full max-w-2xl border-b mb-8 pb-4 relative">
