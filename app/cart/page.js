@@ -68,12 +68,9 @@ export default function CartPage() {
     const userCartUrl = `https://cravy-coral.vercel.app/cart/${cartId}`; // Generate a unique cart URL
     const userId = user.uid; // Get user ID from Firebase authentication
 
-    // Save the cart URL and user ID in Firebase
-    const cartRef = doc(db, 'carts', userId);  // Saving the user's cart under their ID
-    await setDoc(cartRef, { 
-      url: userCartUrl, 
-      items: cartItems  // Saving cart items too
-    });
+    // Save the cart URL to Firebase under the user's ID
+    const cartRef = doc(db, 'carts', userId);
+    await setDoc(cartRef, { url: userCartUrl });
 
     alert('Cart submitted for order! Cart URL saved to Firebase.');
   };

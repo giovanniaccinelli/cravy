@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
-import { getDocs, collection, updateDoc, doc } from 'firebase/firestore';
+import { db } from '../firebase'; // Firebase config import
+import { getDocs, collection, updateDoc, doc, getDoc } from 'firebase/firestore'; // Correctly import the getDoc function
 import { getAuth } from 'firebase/auth'; // For accessing the current user's name/email
 
 export default function AdminPage() {
