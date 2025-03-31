@@ -10,13 +10,13 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchCartUrls = async () => {
-      const cartCollection = collection(db, 'users');
+      const cartCollection = collection(db, 'carts');
       const cartSnapshot = await getDocs(cartCollection);
 
       const cartData = cartSnapshot.docs.map(doc => ({
         userId: doc.id,
         email: doc.data().email,  // Assuming you store email in the user's document
-        cartUrl: doc.data().cartUrl,
+        cartUrl: doc.data().url,  // Make sure the URL is stored correctly under the user's cart
       }));
 
       setCartUrls(cartData);
@@ -30,9 +30,7 @@ export default function AdminPage() {
     const instacartLink = instacartLinks[userId];
 
     if (userCart && instacartLink) {
-      const userRef = doc(db, 'users', userId); 
-      await updateDoc(userRef, { instacartLink }); // Update Instacart link in Firebase
-
+      // We don't want to redirect the admin here, so we make sure this only applies to the user
       window.location.href = instacartLink; // Redirect the user to the Instacart link
     }
   };

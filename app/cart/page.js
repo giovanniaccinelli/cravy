@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Firebase config
-import { setDoc, doc } from 'firebase/firestore'; // Firestore functions
+import { db } from '../firebase'; // Import Firebase configuration
+import { setDoc, doc, getDoc } from 'firebase/firestore'; // Firebase functions
 import { getAuth } from 'firebase/auth'; // Firebase authentication
 import { v4 as uuidv4 } from 'uuid'; // To generate a unique cart ID
 
@@ -10,20 +10,16 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [aggregatedCart, setAggregatedCart] = useState([]);
   const [showToast, setShowToast] = useState(false);
-  const [cartId, setCartId] = useState(''); // Unique Cart ID
-  const [userCartUrl, setUserCartUrl] = useState('');
+  const [cartId, setCartId] = useState(''); // Store unique cart ID for the user
 
   useEffect(() => {
     const rawCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(rawCart);
     aggregateItems(rawCart);
 
-    // Generate a unique cart ID for the user
+    // Generate a unique cart ID for each user
     const uniqueCartId = uuidv4();
     setCartId(uniqueCartId);
-
-    // Generate a unique cart URL for the user
-    setUserCartUrl(`https://cravy-coral.vercel.app/cart/${uniqueCartId}`);
   }, []);
 
   const aggregateItems = (items) => {
@@ -63,16 +59,17 @@ export default function CartPage() {
   };
 
   const orderCart = async () => {
-    const user = getAuth().currentUser; // Get current logged-in user
+    const user = getAuth().currentUser; // Get the current logged-in user
     if (!user) {
       alert('Please log in first.');
       return;
     }
 
+    const userCartUrl = `https://cravy-coral.vercel.app/cart/${cartId}`; // Generate a unique cart URL
     const userId = user.uid; // Get user ID from Firebase authentication
 
-    // Save the unique cart URL under this user's ID in Firestore
-    const cartRef = doc(db, 'users', userId, 'carts', cartId);
+    // Save the cart URL to Firebase under the user's ID
+    const cartRef = doc(db, 'carts', userId);
     await setDoc(cartRef, { url: userCartUrl });
 
     alert('Cart submitted for order! Cart URL saved to Firebase.');
@@ -132,16 +129,13 @@ export default function CartPage() {
             </button>
             <button
               className="bg-green-600 text-white px-4 py-2 rounded"
-              onClick={orderCart} // Save the unique cart URL to Firebase
+              onClick={orderCart} // This will save the user's cart URL in Firebase
             >
               🛒 Order Cart
             </button>
           </div>
         </div>
       )}
-
-      {/* Display the unique cart URL */}
-      <p className="text-gray-600 mt-4">Your Cart URL: <a href={userCartUrl} target="_blank" className="text-blue-600">{userCartUrl}</a></p>
     </div>
   );
 }
