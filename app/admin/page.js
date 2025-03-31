@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
-import { getDocs, collection, updateDoc, doc } from 'firebase/firestore'; // Firebase functions
+import { db } from '../firebase'; // Firebase configuration
+import { getDocs, collection, updateDoc, doc } from 'firebase/firestore'; // Firestore functions
 
 export default function AdminPage() {
   const [cartUrls, setCartUrls] = useState([]);
@@ -16,7 +16,7 @@ export default function AdminPage() {
       const cartData = cartSnapshot.docs.map(doc => ({
         userId: doc.id,
         email: doc.data().email,  // Assuming you store email in the user's document
-        cartUrl: doc.data().url,  // Make sure the URL is stored correctly under the user's cart
+        cartUrl: doc.data().cartUrl,  // Make sure the URL is stored correctly under the user's cart
       }));
 
       setCartUrls(cartData);
