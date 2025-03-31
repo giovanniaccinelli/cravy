@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [aggregatedCart, setAggregatedCart] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const rawCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -52,9 +53,30 @@ export default function CartPage() {
     alert('Cart submitted for order! (this can later trigger affiliate bot)');
   };
 
+  const addToCart = (ingredients) => {
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const updatedCart = [...existingCart, ...ingredients];
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    
+    // Show toast notification
+    setShowToast(true);
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+    
+    alert('Ingredients added to cart!');
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
       <h1 className="text-4xl font-bold text-red-600 mb-6">Your Cart</h1>
+
+      {/* Toast notification */}
+      {showToast && (
+        <div className="toast-notification">
+          <p className="text-white">Item added to cart!</p>
+        </div>
+      )}
 
       {aggregatedCart.length === 0 ? (
         <p className="text-gray-600">Your cart is empty.</p>
@@ -95,3 +117,4 @@ export default function CartPage() {
     </div>
   );
 }
+

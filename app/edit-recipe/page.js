@@ -5,9 +5,10 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import structuredIngredients from '../structured_usda_ingredients.json';
+import structuredIngredients from '../structured_usda_ingredients.json'; // Ingredients list imported from the JSON file
+import categories from '../categories.json'; // Categories list imported from the JSON file
 
-export default function EditRecipeClient() {
+export default function EditRecipe() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recipeId = searchParams.get('id');
@@ -15,20 +16,21 @@ export default function EditRecipeClient() {
   const [user, setUser] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [ingredientList, setIngredientList] = useState([]);
+  const [ingredientList, setIngredientList] = useState(structuredIngredients); // Ingredients list populated from the imported JSON
   const [addedIngredients, setAddedIngredients] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(''); // Category State
 
+  // Input fields for new row
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (currentUser) => {
+    onAuthStateChanged(auth, async currentUser => {
       if (!currentUser) {
         router.push('/login');
       } else {
         setUser(currentUser);
-        setIngredientList(structuredIngredients);
 
         if (recipeId) {
           const docRef = doc(db, 'recipes', recipeId);
@@ -45,6 +47,7 @@ export default function EditRecipeClient() {
             setDescription(data.description);
             setVideoUrl(data.videoUrl);
             setAddedIngredients(data.ingredients || []);
+            setSelectedCategory(data.category || ''); // Set the category
           } else {
             alert('Recipe not found.');
             router.push('/');
@@ -63,7 +66,7 @@ export default function EditRecipeClient() {
     const newItem = {
       selectedIngredient,
       selectedUnit,
-      quantity: parseFloat(quantity),
+      quantity: parseFloat(quantity)
     };
 
     setAddedIngredients([...addedIngredients, newItem]);
@@ -80,7 +83,7 @@ export default function EditRecipeClient() {
   };
 
   const handleSubmit = async () => {
-    if (!description || !videoUrl) {
+    if (!description || !videoUrl || !selectedCategory) {
       alert('Please fill in all fields.');
       return;
     }
@@ -96,6 +99,7 @@ export default function EditRecipeClient() {
         description,
         videoUrl,
         ingredients: addedIngredients,
+        category: selectedCategory // Save the selected category
       });
 
       alert('Recipe updated!');
@@ -106,8 +110,7 @@ export default function EditRecipeClient() {
     }
   };
 
-  const availableUnits =
-    ingredientList.find((i) => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
+  const availableUnits = ingredientList.find(i => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -129,8 +132,23 @@ export default function EditRecipeClient() {
         onChange={(e) => setVideoUrl(e.target.value)}
       />
 
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">Category</h2>
+      <select
+        className="p-2 border border-gray-300 rounded mb-6"
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+      >
+        <option value="">Select Category</option>
+        {categories.map((category, index) => (
+          <option key={index} value={category.name} className={`${category.color}`}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
 
+      {/* Fixed Row for Input */}
       <div className="w-full max-w-xl grid grid-cols-4 gap-2 mb-4 items-center">
         <select
           className="p-2 border border-gray-300 rounded"
@@ -179,6 +197,7 @@ export default function EditRecipeClient() {
         </button>
       </div>
 
+      {/* List of Added Ingredients */}
       <div className="w-full max-w-xl mb-6">
         {addedIngredients.map((item, idx) => (
           <div key={idx} className="grid grid-cols-4 gap-2 items-center mb-2">
