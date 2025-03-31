@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Import Firebase configuration
 import { setDoc, doc } from 'firebase/firestore'; // Firebase functions
+import { getAuth } from 'firebase/auth'; // To get the user info
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
@@ -54,7 +55,8 @@ export default function CartPage() {
   const orderCart = async () => {
     const userCartUrl = window.location.href; // This is now the actual cart page URL (unique to each user)
     
-    const userId = "user123"; // Replace with actual user ID (you can fetch it from Firebase Auth or session)
+    const user = getAuth().currentUser; // Get the current user
+    const userId = user.uid; // Use the user's unique ID to store the cart URL
     const cartRef = doc(db, 'carts', userId);
     
     await setDoc(cartRef, { url: userCartUrl });
@@ -126,4 +128,3 @@ export default function CartPage() {
     </div>
   );
 }
-
