@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase'; // Firebase configuration
+import { db } from '../firebase'; // Corrected import path
 import { setDoc, doc } from 'firebase/firestore'; // Firebase functions
 import { getAuth } from 'firebase/auth'; // Firebase authentication
 import { v4 as uuidv4 } from 'uuid'; // To generate a unique cart ID
@@ -12,7 +12,6 @@ export default function CartPage() {
   const [showToast, setShowToast] = useState(false);
   const [cartId, setCartId] = useState(''); // Store unique cart ID for the user
 
-  // Fetch cart data from localStorage
   useEffect(() => {
     const rawCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(rawCart);
@@ -71,7 +70,7 @@ export default function CartPage() {
 
     // Save the cart URL to Firebase under the user's ID
     const cartRef = doc(db, 'carts', userId);
-    await setDoc(cartRef, { url: userCartUrl, items: aggregatedCart });
+    await setDoc(cartRef, { url: userCartUrl });
 
     alert('Cart submitted for order! Cart URL saved to Firebase.');
   };
@@ -130,7 +129,7 @@ export default function CartPage() {
             </button>
             <button
               className="bg-green-600 text-white px-4 py-2 rounded"
-              onClick={orderCart} // Save the user's cart URL to Firebase
+              onClick={orderCart} // This will save the user's cart URL in Firebase
             >
               🛒 Order Cart
             </button>

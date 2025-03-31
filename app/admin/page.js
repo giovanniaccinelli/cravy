@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { db } from '../firebase'; // Corrected import path
 import { getDocs, collection, updateDoc, doc } from 'firebase/firestore';
 
 export default function AdminPage() {
