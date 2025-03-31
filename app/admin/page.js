@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Firebase config import
-import { getDocs, collection, updateDoc, doc, getDoc } from 'firebase/firestore'; // Correctly import the getDoc function
-import { getAuth } from 'firebase/auth'; // For accessing the current user's name/email
+import { db } from '../firebase';
+import { getDocs, collection, updateDoc, doc } from 'firebase/firestore'; // Firebase functions
 
 export default function AdminPage() {
   const [cartUrls, setCartUrls] = useState([]);
@@ -11,41 +10,30 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchCartUrls = async () => {
-      const cartCollection = collection(db, 'carts');
+      const cartCollection = collection(db, 'users');
       const cartSnapshot = await getDocs(cartCollection);
 
       const cartData = cartSnapshot.docs.map(doc => ({
         userId: doc.id,
-        url: doc.data().url,
+        email: doc.data().email,  // Assuming you store email in the user's document
+        cartUrl: doc.data().cartUrl,
       }));
 
-      // Fetching user details to display along with cart URL
-      const usersWithNames = await Promise.all(cartData.map(async (cart) => {
-        const userRef = doc(db, 'users', cart.userId); // Assuming you have a 'users' collection
-        const userSnap = await getDoc(userRef);
-        const userData = userSnap.data();
-        return {
-          ...cart,
-          name: userData?.profileName || userData?.email || 'Unknown User', // Show name or email
-        };
-      }));
-
-      setCartUrls(usersWithNames);
+      setCartUrls(cartData);
     };
 
     fetchCartUrls();
   }, []);
 
-  const handleRedirect = (userId) => {
+  const handleRedirect = async (userId) => {
     const userCart = cartUrls.find(cart => cart.userId === userId);
     const instacartLink = instacartLinks[userId];
 
     if (userCart && instacartLink) {
-      const userRef = doc(db, 'carts', userId);
-      updateDoc(userRef, { instacartLink });
+      const userRef = doc(db, 'users', userId); 
+      await updateDoc(userRef, { instacartLink }); // Update Instacart link in Firebase
 
-      // Only redirect the user who owns the cart
-      window.location.href = instacartLink;
+      window.location.href = instacartLink; // Redirect the user to the Instacart link
     }
   };
 
@@ -74,14 +62,13 @@ export default function AdminPage() {
             {cartUrls.map((cart, idx) => (
               <li key={idx} className="flex justify-between items-center mb-4">
                 <div className="flex flex-col w-2/3">
-                  {/* Display User's Name and Cart URL */}
-                  <span className="text-sm text-gray-700">{cart.name}</span> {/* Display Name or Email */}
-                  <span className="text-sm text-gray-700">{cart.url}</span> {/* Display Cart URL */}
-
+                  {/* Display Cart URL */}
+                  <span className="text-sm text-gray-700">{cart.cartUrl}</span>
+                  <span className="text-sm text-gray-700">{cart.email}</span> {/* Display Email or Name */}
                   {/* Copy button */}
                   <button
                     className="text-white bg-blue-600 px-2 py-1 rounded mt-1 text-sm"
-                    onClick={() => handleCopyUrl(cart.url)}
+                    onClick={() => handleCopyUrl(cart.cartUrl)}
                   >
                     Copy URL
                   </button>
