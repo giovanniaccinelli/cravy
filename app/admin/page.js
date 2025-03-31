@@ -1,52 +1,38 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Firebase config
-import { getDocs, collection, updateDoc, doc } from 'firebase/firestore'; // Firebase functions
-import { getAuth } from 'firebase/auth'; // Firebase Auth to get the user info
+import { db } from '../firebase';
+import { getDocs, collection, updateDoc, doc } from 'firebase/firestore';
 
 export default function AdminPage() {
   const [cartUrls, setCartUrls] = useState([]);
-  const [instacartLinks, setInstacartLinks] = useState({}); // Object to track links for each user
-  const [userRedirected, setUserRedirected] = useState(false);
-  
-  const [selectedUser, setSelectedUser] = useState(''); // Added to select user
+  const [instacartLinks, setInstacartLinks] = useState({}); // Store each user's instacart link
 
   useEffect(() => {
-    // Check if the current logged-in user is admin (using email)
-    const user = getAuth().currentUser;
-    if (user && user.email !== "giovanni.accinelli@gmail.com") {
-      window.location.href = '/'; // Redirect non-admins to home page
-    }
-
     const fetchCartUrls = async () => {
       const cartCollection = collection(db, 'carts');
       const cartSnapshot = await getDocs(cartCollection);
-      
+
       const cartData = cartSnapshot.docs.map(doc => ({
         userId: doc.id,
         url: doc.data().url,
       }));
-      
+
       setCartUrls(cartData);
     };
 
     fetchCartUrls();
-  }, [userRedirected]);
+  }, []);
 
   const handleRedirect = (userId) => {
-    // Find the user's cart URL
     const userCart = cartUrls.find(cart => cart.userId === userId);
-    const instacartLink = instacartLinks[userId]; // Get Instacart link for that user
-    
+    const instacartLink = instacartLinks[userId];
+
     if (userCart && instacartLink) {
-      // Save the generated Instacart link for the user in Firebase
       const userRef = doc(db, 'carts', userId);
       updateDoc(userRef, { instacartLink });
 
-      // Redirect the user to the Instacart link
-      window.location.href = instacartLink;
-      setUserRedirected(true);
+      window.location.href = instacartLink; // Redirect the user to the Instacart link
     }
   };
 
@@ -65,7 +51,7 @@ export default function AdminPage() {
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4">
       <h1 className="text-4xl font-bold text-red-600 mb-6">Admin Page</h1>
 
-      {/* List of user cart URLs */}
+      {/* Display user cart URLs */}
       {cartUrls.length === 0 ? (
         <p className="text-gray-600">No carts ordered yet.</p>
       ) : (
@@ -87,18 +73,18 @@ export default function AdminPage() {
                 </div>
 
                 <div className="flex flex-col w-1/3 ml-2">
-                  {/* Instacart Link Input Field */}
+                  {/* Instacart Link Input */}
                   <input
                     type="text"
                     placeholder="Paste Instacart link"
                     className="p-2 border border-gray-300 rounded mb-4"
-                    value={instacartLinks[cart.userId] || ''} // Track individual link for each user
+                    value={instacartLinks[cart.userId] || ''}
                     onChange={(event) => handleInstacartLinkChange(cart.userId, event)}
                   />
                   {/* Submit button */}
                   <button
                     className="bg-green-600 text-white px-4 py-2 rounded"
-                    onClick={() => handleRedirect(cart.userId)} // This will submit the Instacart link and redirect the user
+                    onClick={() => handleRedirect(cart.userId)} // Redirect the user to the Instacart link
                   >
                     Submit Instacart Link
                   </button>

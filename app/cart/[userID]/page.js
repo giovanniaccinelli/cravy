@@ -1,17 +1,16 @@
-// app/cart/[userId]/page.js
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase'; // Import your Firebase config
-import { doc, getDoc } from 'firebase/firestore'; // Import Firestore methods
+import { db } from '../../firebase'; // Firebase config
+import { doc, getDoc } from 'firebase/firestore'; // Firestore functions
 
 export default function CartPage({ params }) {
-  const { userId } = params; // Access userId from URL
+  const { userId } = params; // Get userId from the URL
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const fetchCart = async () => {
-      const cartRef = doc(db, 'carts', userId); // Get the cart for the specific user from Firebase
+      const cartRef = doc(db, 'carts', userId); // Reference to the user's cart in Firebase
       const cartSnap = await getDoc(cartRef);
       if (cartSnap.exists()) {
         setCartItems(cartSnap.data().items);  // Populate cart items

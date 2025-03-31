@@ -1,19 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Import Firebase configuration
+import { db } from '../../firebase'; // Firebase configuration
 import { setDoc, doc } from 'firebase/firestore'; // Firebase functions
-import { getAuth } from 'firebase/auth'; // To get the user info
+import { getAuth } from 'firebase/auth'; // Firebase authentication
+import { v4 as uuidv4 } from 'uuid'; // To generate a unique cart ID
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [aggregatedCart, setAggregatedCart] = useState([]);
   const [showToast, setShowToast] = useState(false);
+  const [cartId, setCartId] = useState(''); // Store unique cart ID for the user
 
+  // Fetch cart data from localStorage
   useEffect(() => {
     const rawCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(rawCart);
     aggregateItems(rawCart);
+
+    // Generate a unique cart ID for each user
+    const uniqueCartId = uuidv4();
+    setCartId(uniqueCartId);
   }, []);
 
   const aggregateItems = (items) => {
@@ -53,13 +60,18 @@ export default function CartPage() {
   };
 
   const orderCart = async () => {
-    const userCartUrl = window.location.href; // This is now the actual cart page URL (unique to each user)
-    
-    const user = getAuth().currentUser; // Get the current user
-    const userId = user.uid; // Use the user's unique ID to store the cart URL
+    const user = getAuth().currentUser; // Get the current logged-in user
+    if (!user) {
+      alert('Please log in first.');
+      return;
+    }
+
+    const userCartUrl = `https://cravy-coral.vercel.app/cart/${cartId}`; // Generate a unique cart URL
+    const userId = user.uid; // Get user ID from Firebase authentication
+
+    // Save the cart URL to Firebase under the user's ID
     const cartRef = doc(db, 'carts', userId);
-    
-    await setDoc(cartRef, { url: userCartUrl });
+    await setDoc(cartRef, { url: userCartUrl, items: aggregatedCart });
 
     alert('Cart submitted for order! Cart URL saved to Firebase.');
   };
@@ -68,13 +80,13 @@ export default function CartPage() {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
     const updatedCart = [...existingCart, ...ingredients];
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    
+
     // Show toast notification
     setShowToast(true);
-    
+
     // Hide toast after 3 seconds
     setTimeout(() => setShowToast(false), 3000);
-    
+
     alert('Ingredients added to cart!');
   };
 
@@ -118,7 +130,7 @@ export default function CartPage() {
             </button>
             <button
               className="bg-green-600 text-white px-4 py-2 rounded"
-              onClick={orderCart} // This will send the user's cart URL to Firebase
+              onClick={orderCart} // Save the user's cart URL to Firebase
             >
               🛒 Order Cart
             </button>
