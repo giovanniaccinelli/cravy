@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation'; // useSearchParams only works on client-side
 import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -14,16 +14,14 @@ export default function EditRecipe() {
   const [user, setUser] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [ingredientList, setIngredientList] = useState(structuredIngredients); // Ingredients list populated from the imported JSON
+  const [ingredientList, setIngredientList] = useState(structuredIngredients);
   const [addedIngredients, setAddedIngredients] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(''); // Category State
-
-  // Input fields for new row
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
 
-  // Using useEffect to handle useSearchParams on the client-side only
+  // Client-side only code for getting URL search params
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const recipeIdFromParams = searchParams.get('id');
