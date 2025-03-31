@@ -10,10 +10,7 @@ import categories from '../categories.json'; // Categories list imported from th
 
 export default function EditRecipe() {
   const router = useRouter();
-  const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search)); // Handle search params in client-side rendering
-
-  const recipeId = searchParams.get('id'); // Get 'id' from URL
-
+  const [recipeId, setRecipeId] = useState('');
   const [user, setUser] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   const [description, setDescription] = useState('');
@@ -26,37 +23,41 @@ export default function EditRecipe() {
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
 
+  // Using useEffect to handle useSearchParams on the client-side only
   useEffect(() => {
-    onAuthStateChanged(auth, async currentUser => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const recipeIdFromParams = searchParams.get('id');
+    setRecipeId(recipeIdFromParams);
+
+    if (recipeIdFromParams) {
+      const fetchRecipe = async () => {
+        const docRef = doc(db, 'recipes', recipeIdFromParams);
+        const recipeSnap = await getDoc(docRef);
+        if (recipeSnap.exists()) {
+          const data = recipeSnap.data();
+          setDescription(data.description);
+          setVideoUrl(data.videoUrl);
+          setAddedIngredients(data.ingredients || []);
+          setSelectedCategory(data.category || '');
+        } else {
+          alert('Recipe not found');
+          router.push('/');
+        }
+      };
+
+      fetchRecipe();
+    }
+  }, [router]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         router.push('/login');
       } else {
         setUser(currentUser);
-
-        if (recipeId) {
-          const docRef = doc(db, 'recipes', recipeId);
-          const recipeSnap = await getDoc(docRef);
-
-          if (recipeSnap.exists()) {
-            const data = recipeSnap.data();
-            if (data.creator !== currentUser.email) {
-              alert("You can't edit this recipe.");
-              router.push('/');
-              return;
-            }
-
-            setDescription(data.description);
-            setVideoUrl(data.videoUrl);
-            setAddedIngredients(data.ingredients || []);
-            setSelectedCategory(data.category || ''); // Set the category
-          } else {
-            alert('Recipe not found.');
-            router.push('/');
-          }
-        }
       }
     });
-  }, [recipeId, router]);
+  }, [router]);
 
   const handleAddIngredient = () => {
     if (!selectedIngredient || !selectedUnit || !parseFloat(quantity)) {
@@ -64,14 +65,8 @@ export default function EditRecipe() {
       return;
     }
 
-    const newItem = {
-      selectedIngredient,
-      selectedUnit,
-      quantity: parseFloat(quantity)
-    };
-
+    const newItem = { selectedIngredient, selectedUnit, quantity: parseFloat(quantity) };
     setAddedIngredients([...addedIngredients, newItem]);
-
     setSelectedIngredient('');
     setSelectedUnit('');
     setQuantity('');
@@ -100,7 +95,7 @@ export default function EditRecipe() {
         description,
         videoUrl,
         ingredients: addedIngredients,
-        category: selectedCategory // Save the selected category
+        category: selectedCategory,
       });
 
       alert('Recipe updated!');
@@ -111,7 +106,7 @@ export default function EditRecipe() {
     }
   };
 
-  const availableUnits = ingredientList.find(i => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
+  const availableUnits = ingredientList.find((i) => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -190,10 +185,7 @@ export default function EditRecipe() {
           min="0"
         />
 
-        <button
-          onClick={handleAddIngredient}
-          className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700"
-        >
+        <button onClick={handleAddIngredient} className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700">
           ➕ Add
         </button>
       </div>
@@ -215,10 +207,7 @@ export default function EditRecipe() {
         ))}
       </div>
 
-      <button
-        className="bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700"
-        onClick={handleSubmit}
-      >
+      <button className="bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700" onClick={handleSubmit}>
         💾 Update Recipe
       </button>
     </div>
