@@ -1,67 +1,49 @@
-'use client';
-
 import { useEffect, useState } from 'react';
-import { auth } from '../firebase';  // Firebase auth to get the logged-in user's email
-import { useRouter } from 'next/navigation';
 
 export default function AdminPage() {
-  const router = useRouter();
-  const [cartUrl, setCartUrl] = useState('');
+  const [cartUrl, setCartUrl] = useState(null);
   const [instacartLink, setInstacartLink] = useState('');
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user || user.email !== "giovanni.accinelli@gmail.com") {
-        // If the user is not the admin, redirect them
-        router.push('/');
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
-
-  useEffect(() => {
-    // Get the cart URL from localStorage
-    const savedCartUrl = localStorage.getItem('currentCartUrl');
-    setCartUrl(savedCartUrl || '');
+    // Get the cart URL from local storage (if any)
+    const userCartUrl = localStorage.getItem("userCartUrl");
+    if (userCartUrl) {
+      setCartUrl(userCartUrl); // Display the cart URL for the admin
+    }
   }, []);
 
-  const handleSubmitLink = () => {
-    if (!instacartLink) {
-      alert('Please enter a valid Instacart link.');
-      return;
+  const handleInstacartLinkSubmission = () => {
+    // Check if an Instacart link is provided
+    if (instacartLink) {
+      // Here you would redirect the user who clicked on "Order Cart"
+      window.location.href = instacartLink;
+      setIsRedirecting(true);
     }
-
-    // Redirect the user who clicked "Order Cart" to the generated Instacart link
-    window.location.href = instacartLink;
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
-      <h1 className="text-4xl font-bold text-red-600 mb-6">Admin Panel</h1>
+    <div className="admin-page">
+      <h2>Admin Page</h2>
 
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Cart URL</h2>
-      <textarea
-        className="p-2 border border-gray-300 rounded w-full max-w-xl"
-        value={cartUrl}
-        readOnly
-      />
+      {cartUrl ? (
+        <div>
+          <p>User's Cart URL: {cartUrl}</p>
 
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Paste Instacart Link Here</h2>
-      <input
-        type="text"
-        className="p-2 border border-gray-300 rounded w-full max-w-xl"
-        value={instacartLink}
-        onChange={(e) => setInstacartLink(e.target.value)}
-        placeholder="Paste your Instacart link here"
-      />
+          <input 
+            type="text" 
+            placeholder="Paste Instacart link here"
+            value={instacartLink}
+            onChange={(e) => setInstacartLink(e.target.value)}
+          />
 
-      <button
-        onClick={handleSubmitLink}
-        className="bg-green-600 text-white px-4 py-2 rounded mt-4"
-      >
-        Submit and Redirect User
-      </button>
+          <button onClick={handleInstacartLinkSubmission}>
+            {isRedirecting ? 'Redirecting...' : 'Submit Instacart Link'}
+          </button>
+        </div>
+      ) : (
+        <p>No cart URL available yet.</p>
+      )}
     </div>
   );
 }

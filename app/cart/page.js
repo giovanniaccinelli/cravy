@@ -50,24 +50,31 @@ export default function CartPage() {
   };
 
   const orderCart = () => {
-    // Save the cart URL in localStorage for the admin to see later
-    const cartUrl = window.location.href;  // The cart URL is saved
-    localStorage.setItem('currentCartUrl', cartUrl);
+    // Capture the current URL of the user's cart
+    const cartUrl = window.location.href; // URL of the cart page
 
-    alert('Cart URL saved! Admin will see the URL and can generate the Instacart link manually.');
+    // Save the cart URL in local storage, so it's accessible by the admin page
+    localStorage.setItem("userCartUrl", cartUrl);
+
+    setShowToast(true);
+
+    // Hide toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+
+    alert('Cart submitted for order!');
   };
 
   const addToCart = (ingredients) => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
     const updatedCart = [...existingCart, ...ingredients];
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
+    
     // Show toast notification
     setShowToast(true);
-
+    
     // Hide toast after 3 seconds
     setTimeout(() => setShowToast(false), 3000);
-
+    
     alert('Ingredients added to cart!');
   };
 
