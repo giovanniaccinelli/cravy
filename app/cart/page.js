@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Make sure you import Firebase configuration
-import { setDoc, doc } from 'firebase/firestore'; // Import Firebase functions
+import { db } from '../firebase'; // Import Firebase configuration
+import { setDoc, doc } from 'firebase/firestore'; // Firebase functions
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
@@ -52,14 +52,13 @@ export default function CartPage() {
   };
 
   const orderCart = async () => {
-    // Instead of just an alert, send the cart data to Firebase
-    const userCartUrl = window.location.href; // Get the current URL (cart URL)
+    const userCartUrl = window.location.href; // This is now the actual cart page URL (unique to each user)
     
-    const userId = "user123"; // Replace with actual user ID
+    const userId = "user123"; // Replace with actual user ID (you can fetch it from Firebase Auth or session)
     const cartRef = doc(db, 'carts', userId);
     
     await setDoc(cartRef, { url: userCartUrl });
-    
+
     alert('Cart submitted for order! Cart URL saved to Firebase.');
   };
 
@@ -117,7 +116,7 @@ export default function CartPage() {
             </button>
             <button
               className="bg-green-600 text-white px-4 py-2 rounded"
-              onClick={orderCart} // This triggers storing the cart URL in Firebase
+              onClick={orderCart} // This will send the user's cart URL to Firebase
             >
               🛒 Order Cart
             </button>
@@ -127,3 +126,4 @@ export default function CartPage() {
     </div>
   );
 }
+

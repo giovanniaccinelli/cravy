@@ -1,53 +1,66 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Firebase configuration
-import { getDoc, doc, updateDoc } from 'firebase/firestore'; // Firebase functions
 
+// Admin Page where you can paste the Instacart link
 export default function AdminPage() {
-  const [cartUrl, setCartUrl] = useState('');
   const [instacartLink, setInstacartLink] = useState('');
-  const [userId, setUserId] = useState("user123"); // Replace with actual user ID (e.g., from Firebase Auth)
+  const [cartUrl, setCartUrl] = useState('');
+  const [redirectMessage, setRedirectMessage] = useState('');
+  const [userId, setUserId] = useState('');
 
+  // Fetch the cart URL saved in localStorage (you can later modify this to pull from Firebase)
   useEffect(() => {
-    // Fetch the cart URL from Firebase
-    const fetchCartUrl = async () => {
-      const cartRef = doc(db, 'carts', userId); // Get the cart document of the user
-      const cartSnap = await getDoc(cartRef);
-      if (cartSnap.exists()) {
-        setCartUrl(cartSnap.data().url);
-      } else {
-        setCartUrl('No cart URL available yet.');
-      }
-    };
+    const savedCartUrl = localStorage.getItem('currentCartUrl');
+    if (savedCartUrl) {
+      setCartUrl(savedCartUrl);
+      const urlParts = new URL(savedCartUrl);
+      setUserId(urlParts.pathname.split('/')[2]); // Assuming the URL has userId in the path
+    }
+  }, []);
 
-    fetchCartUrl();
-  }, [userId]);
+  const handleSubmit = () => {
+    if (!cartUrl || !instacartLink) {
+      alert('Please fill in both fields!');
+      return;
+    }
 
-  const handleRedirect = async () => {
-    if (!instacartLink) return alert('Please paste the Instacart link.');
+    setRedirectMessage(`Redirecting user with cart URL: ${cartUrl} to Instacart link: ${instacartLink}`);
 
-    // Update the user's cart with the Instacart link
-    const cartRef = doc(db, 'carts', userId);
-    await updateDoc(cartRef, { instacartLink });
-
-    // Redirect the user to the Instacart link (this part happens in the user's browser)
+    // Redirect the user to the Instacart link
     window.location.href = instacartLink;
   };
 
   return (
-    <div className="admin-page">
-      <h1>Admin Page</h1>
-      <p>Current Cart URL: {cartUrl}</p>
+    <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4">
+      <h1 className="text-4xl font-bold text-red-600 mb-6">Admin Page</h1>
+
+      {/* Show cart URL */}
+      <div className="mb-6">
+        <p><strong>Cart URL:</strong> {cartUrl ? cartUrl : 'No cart URL available yet'}</p>
+      </div>
+
+      {/* Input field to paste Instacart link */}
       <input
         type="text"
-        placeholder="Paste Instacart Link here"
+        placeholder="Paste Instacart link here"
+        className="p-2 border border-gray-300 rounded mb-4"
         value={instacartLink}
         onChange={(e) => setInstacartLink(e.target.value)}
       />
-      <button onClick={handleRedirect}>
-        Redirect User to Instacart Link
+
+      <button
+        className="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700"
+        onClick={handleSubmit}
+      >
+        Submit Instacart Link
       </button>
+
+      {/* Display redirect message */}
+      {redirectMessage && <p className="mt-4">{redirectMessage}</p>}
+
+      {/* Instructions */}
+      <p className="text-sm mt-6">Once you paste the Instacart link and submit, the user will be redirected to that link.</p>
     </div>
   );
 }
