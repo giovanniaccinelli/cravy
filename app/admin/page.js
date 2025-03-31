@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Corrected import path
+import { db } from '../firebase';
 import { getDocs, collection, updateDoc, doc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth'; // For accessing the current user's name/email
 
 export default function AdminPage() {
   const [cartUrls, setCartUrls] = useState([]);
@@ -18,7 +19,18 @@ export default function AdminPage() {
         url: doc.data().url,
       }));
 
-      setCartUrls(cartData);
+      // Fetching user details to display along with cart URL
+      const usersWithNames = await Promise.all(cartData.map(async (cart) => {
+        const userRef = doc(db, 'users', cart.userId); // Assuming you have a 'users' collection
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.data();
+        return {
+          ...cart,
+          name: userData?.profileName || userData?.email || 'Unknown User', // Show name or email
+        };
+      }));
+
+      setCartUrls(usersWithNames);
     };
 
     fetchCartUrls();
@@ -32,7 +44,8 @@ export default function AdminPage() {
       const userRef = doc(db, 'carts', userId);
       updateDoc(userRef, { instacartLink });
 
-      window.location.href = instacartLink; // Redirect the user to the Instacart link
+      // Only redirect the user who owns the cart
+      window.location.href = instacartLink;
     }
   };
 
@@ -61,8 +74,10 @@ export default function AdminPage() {
             {cartUrls.map((cart, idx) => (
               <li key={idx} className="flex justify-between items-center mb-4">
                 <div className="flex flex-col w-2/3">
-                  {/* Display Cart URL */}
-                  <span className="text-sm text-gray-700">{cart.url}</span>
+                  {/* Display User's Name and Cart URL */}
+                  <span className="text-sm text-gray-700">{cart.name}</span> {/* Display Name or Email */}
+                  <span className="text-sm text-gray-700">{cart.url}</span> {/* Display Cart URL */}
+
                   {/* Copy button */}
                   <button
                     className="text-white bg-blue-600 px-2 py-1 rounded mt-1 text-sm"
