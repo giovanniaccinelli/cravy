@@ -1,48 +1,47 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Firebase configuration
-import { getDocs, collection, updateDoc, doc } from 'firebase/firestore'; // Firestore functions
+import { db } from '../firebase';
+import { getDocs, collection, updateDoc, doc } from 'firebase/firestore';
 
 export default function AdminPage() {
-  const [cartUrls, setCartUrls] = useState([]);
-  const [instacartLinks, setInstacartLinks] = useState({}); // Store each user's instacart link
+  const [recipes, setRecipes] = useState([]);
+  const [instacartLinks, setInstacartLinks] = useState({}); // Store instacart links
 
   useEffect(() => {
-    const fetchCartUrls = async () => {
-      const cartCollection = collection(db, 'carts');
-      const cartSnapshot = await getDocs(cartCollection);
-
-      const cartData = cartSnapshot.docs.map(doc => ({
-        userId: doc.id,
-        email: doc.data().email,  // Assuming you store email in the user's document
-        cartUrl: doc.data().cartUrl,  // Make sure the URL is stored correctly under the user's cart
+    const fetchRecipes = async () => {
+      const recipeCollection = collection(db, 'recipes');
+      const recipeSnapshot = await getDocs(recipeCollection);
+      const recipeData = recipeSnapshot.docs.map(doc => ({
+        recipeId: doc.id,
+        ...doc.data()
       }));
-
-      setCartUrls(cartData);
+      setRecipes(recipeData);
     };
 
-    fetchCartUrls();
+    fetchRecipes();
   }, []);
 
-  const handleRedirect = async (userId) => {
-    const userCart = cartUrls.find(cart => cart.userId === userId);
-    const instacartLink = instacartLinks[userId];
-
-    if (userCart && instacartLink) {
-      // We don't want to redirect the admin here, so we make sure this only applies to the user
-      window.location.href = instacartLink; // Redirect the user to the Instacart link
-    }
+  const handleInstacartLinkChange = (recipeId, event) => {
+    const updatedLinks = { ...instacartLinks, [recipeId]: event.target.value };
+    setInstacartLinks(updatedLinks);
   };
 
-  const handleInstacartLinkChange = (userId, event) => {
-    const updatedLinks = { ...instacartLinks, [userId]: event.target.value };
-    setInstacartLinks(updatedLinks);
+  const handleRedirectToInstacart = (recipeId) => {
+    const instacartLink = instacartLinks[recipeId];
+    if (instacartLink) {
+      const recipeRef = doc(db, 'recipes', recipeId);
+      updateDoc(recipeRef, { instacartLink });
+
+      alert('Instacart link updated!');
+    } else {
+      alert('Please paste an Instacart link first.');
+    }
   };
 
   const handleCopyUrl = (url) => {
     navigator.clipboard.writeText(url).then(() => {
-      alert('Cart URL copied to clipboard!');
+      alert("Recipe URL copied to clipboard!");
     });
   };
 
@@ -50,23 +49,22 @@ export default function AdminPage() {
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4">
       <h1 className="text-4xl font-bold text-red-600 mb-6">Admin Page</h1>
 
-      {/* Display user cart URLs */}
-      {cartUrls.length === 0 ? (
-        <p className="text-gray-600">No carts ordered yet.</p>
+      {/* Display user recipe URLs */}
+      {recipes.length === 0 ? (
+        <p className="text-gray-600">No recipes posted yet.</p>
       ) : (
         <div className="w-full max-w-2xl">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">User Cart URLs</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">User Recipe URLs</h2>
           <ul className="list-disc pl-5 text-gray-800 mb-6">
-            {cartUrls.map((cart, idx) => (
+            {recipes.map((recipe, idx) => (
               <li key={idx} className="flex justify-between items-center mb-4">
                 <div className="flex flex-col w-2/3">
-                  {/* Display Cart URL */}
-                  <span className="text-sm text-gray-700">{cart.cartUrl}</span>
-                  <span className="text-sm text-gray-700">{cart.email}</span> {/* Display Email or Name */}
+                  {/* Display Recipe URL */}
+                  <span className="text-sm text-gray-700">Recipe URL: <a href={`/recipe/${recipe.recipeId}`} target="_blank">/recipe/{recipe.recipeId}</a></span>
                   {/* Copy button */}
                   <button
                     className="text-white bg-blue-600 px-2 py-1 rounded mt-1 text-sm"
-                    onClick={() => handleCopyUrl(cart.cartUrl)}
+                    onClick={() => handleCopyUrl(`/recipe/${recipe.recipeId}`)}
                   >
                     Copy URL
                   </button>
@@ -78,13 +76,13 @@ export default function AdminPage() {
                     type="text"
                     placeholder="Paste Instacart link"
                     className="p-2 border border-gray-300 rounded mb-4"
-                    value={instacartLinks[cart.userId] || ''}
-                    onChange={(event) => handleInstacartLinkChange(cart.userId, event)}
+                    value={instacartLinks[recipe.recipeId] || ''}
+                    onChange={(event) => handleInstacartLinkChange(recipe.recipeId, event)}
                   />
                   {/* Submit button */}
                   <button
                     className="bg-green-600 text-white px-4 py-2 rounded"
-                    onClick={() => handleRedirect(cart.userId)} // Redirect the user to the Instacart link
+                    onClick={() => handleRedirectToInstacart(recipe.recipeId)} // Redirect the user to the Instacart link
                   >
                     Submit Instacart Link
                   </button>

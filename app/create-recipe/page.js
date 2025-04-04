@@ -1,3 +1,4 @@
+// app/create-recipe/page.js
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -7,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import structuredIngredients from '../structured_usda_ingredients.json';
 import categories from '../categories.json'; // Import categories (now with colors)
+import { v4 as uuidv4 } from 'uuid'; // To generate unique recipe IDs
 
 export default function CreateRecipe() {
   const router = useRouter();
@@ -16,7 +18,6 @@ export default function CreateRecipe() {
   const [ingredientList, setIngredientList] = useState([]);
   const [addedIngredients, setAddedIngredients] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(''); // State for selected category
-
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -41,7 +42,7 @@ export default function CreateRecipe() {
     const newItem = {
       selectedIngredient,
       selectedUnit,
-      quantity: parseFloat(quantity)
+      quantity: parseFloat(quantity),
     };
 
     setAddedIngredients([...addedIngredients, newItem]);
@@ -69,13 +70,18 @@ export default function CreateRecipe() {
     }
 
     try {
+      const recipeId = uuidv4(); // Generate a unique ID for the recipe
+      const recipeUrl = `https://cravy-coral.vercel.app/recipe/${recipeId}`; // Generate URL with the unique recipeId
+
       await addDoc(collection(db, 'recipes'), {
         creator: user.email,
         creatorId: user.uid,
         description,
         videoUrl,
         ingredients: addedIngredients,
-        category: selectedCategory || "Uncategorized" // If no category selected, default to 'Uncategorized'
+        category: selectedCategory || "Uncategorized", // If no category selected, default to 'Uncategorized'
+        recipeId, // Save the unique recipeId to the recipe
+        url: recipeUrl, // Save the generated URL for the recipe
       });
 
       alert('Recipe uploaded!');
@@ -121,12 +127,6 @@ export default function CreateRecipe() {
           </option>
         ))}
       </select>
-
-      {selectedCategory && (
-        <div className={`mb-4 p-2 rounded-full text-white ${categories.find(cat => cat.name === selectedCategory).color}`}>
-          {selectedCategory}
-        </div>
-      )}
 
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
 
