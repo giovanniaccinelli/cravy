@@ -1,13 +1,15 @@
+// app/create-recipe/page.js
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
-import { v4 as uuidv4 } from 'uuid'; // To generate unique recipe IDs
+import { v4 as uuidv4 } from 'uuid'; // UUID for unique recipe ID generation
+
 import structuredIngredients from '../structured_usda_ingredients.json';
-import categories from '../categories.json'; // Import categories (now with colors)
+import categories from '../categories.json';
 
 export default function CreateRecipe() {
   const router = useRouter();
@@ -16,7 +18,7 @@ export default function CreateRecipe() {
   const [description, setDescription] = useState('');
   const [ingredientList, setIngredientList] = useState([]);
   const [addedIngredients, setAddedIngredients] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(''); // State for selected category
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
@@ -70,8 +72,8 @@ export default function CreateRecipe() {
     }
 
     try {
-      const recipeId = uuidv4();  // Generate unique recipe ID
-      const recipeUrl = `https://cravy-coral.vercel.app/recipe/${recipeId}`;  // Public URL for recipe
+      const recipeId = uuidv4(); // Generate unique recipe ID
+      const recipeUrl = `https://cravy-coral.vercel.app/recipe/${recipeId}`; // Generate unique URL
 
       await addDoc(collection(db, 'recipes'), {
         creator: user.email,
@@ -81,7 +83,7 @@ export default function CreateRecipe() {
         ingredients: addedIngredients,
         category: selectedCategory || "Uncategorized",
         recipeId,
-        recipeUrl,  // Save public URL
+        recipeUrl, // Store the URL for the recipe
       });
 
       alert('Recipe uploaded!');
@@ -91,8 +93,6 @@ export default function CreateRecipe() {
       alert('Upload failed.');
     }
   };
-
-  const availableUnits = ingredientList.find(i => i.Ingredient === selectedIngredient)?.['Measurement Units'] || [];
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 bg-white px-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -128,12 +128,6 @@ export default function CreateRecipe() {
         ))}
       </select>
 
-      {selectedCategory && (
-        <div className={`mb-4 p-2 rounded-full text-white ${categories.find(cat => cat.name === selectedCategory).color}`}>
-          {selectedCategory}
-        </div>
-      )}
-
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
 
       <div className="w-full max-w-xl grid grid-cols-4 gap-2 mb-4 items-center">
@@ -160,7 +154,7 @@ export default function CreateRecipe() {
           disabled={!selectedIngredient}
         >
           <option value="">Unit</option>
-          {availableUnits.map((unit, i) => (
+          {ingredientList.find(i => i.Ingredient === selectedIngredient)?.['Measurement Units'].map((unit, i) => (
             <option key={i} value={unit}>
               {unit}
             </option>
